@@ -1,0 +1,156 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.nav{
+    padding-left: 60px;
+    padding-right: 60px;
+    background-color: #353A40;
+}
+
+.links--principales{
+    color: white;
+    text-decoration: none;
+}
+
+.links{
+    color: #CFD4DA;
+}
+
+.links--final{
+    color: #29A744;
+}
+
+.carousel-item{
+    height: 90vh;
+}
+
+.images{
+    filter: brightness(50%);
+    position: relative;
+    top: -150px;
+}
+
+.text{
+    padding-top: 15%;
+    padding-left: 52%;
+    padding-right: 10%;
+    position: relative;
+    color: white;
+    text-align: right;
+}
+
+.btn1{
+    border: 1px solid white;
+    background-color: transparent;
+}
+
+.btn2{
+    border: 1px solid #29A744;
+    background-color: #29A744;
+}
+
+.section__oradores{
+    text-align: center;
+}
+
+.oradores__title{
+    margin-top: 20px;
+    font-size: small;
+}
+
+.p__oradores{
+    margin-bottom: 0rem;
+    font-size: x-small;
+}
+
+.oradores__cards{
+    display: flex;
+    justify-content: center;
+    text-align: left;
+}
+
+.cards__images{
+    width: 228px;
+    margin: 10px;
+    border: 1px solid whitesmoke;
+    font-size: small;
+}
+
+.cards__text{
+    padding: 10px;
+}
+
+.bdg{
+    background-color: #17A2B7 !important;
+    color: white !important;
+}
+
+.badge{
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.section__place{
+    width: 100vw;
+    display: flex;
+    background-color: #353A40;
+    color: white;
+}
+
+.place__image{
+    border: 0.2px solid white;
+    width: 50vw;
+}
+
+.place__text{
+    border: 0.2px solid white;
+    font-size: small;
+}
+
+.place__text--1{
+    margin: 15px;
+}
+
+.span{
+    border-bottom: 1px dotted black;
+}
+
+.section__form{
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+.area{
+    margin-top: 15px;
+}
+
+.btn-green{
+    background-color: #96C93E;
+    color: white;
+}
+
+.p__form{
+    text-align: left;
+    color: gray;
+    font-size: small;
+}
+
+.section__footer{
+    background-image: linear-gradient(to right, #1C3643, #1E5372);
+    color: white;
+}
+
+.footer__list{
+    margin-top: 20px;
+    margin-bottom: 0px;
+    padding: 0px 200px 0px 200px;
+}
+
+.footer__item{
+    list-style: none;
+    text-align: center;
+    margin: 2rem;
+
+}
