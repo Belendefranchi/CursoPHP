@@ -23,7 +23,7 @@
 }
 
 .carousel-item{
-    height: 90vh;
+    height: 180vh;
 }
 
 .images{
@@ -69,7 +69,6 @@
 .oradores__cards{
     display: flex;
     justify-content: center;
-    text-align: left;
 }
 
 .cards__images{
@@ -77,7 +76,7 @@
     margin: 10px;
     border: 1px solid whitesmoke;
     font-size: small;
-    text-align: center;
+    text-align: left;
     object-fit: cover;
 }
 
