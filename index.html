@@ -18,24 +18,24 @@
                     <img src="images/codoacodo.png" alt="Logo" width="100" class="d-inline-block align-text-top">
                 </a>
                 <a class="navbar-brand links--principales" href="#">Conf Bs As</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item d-flex justify-content-end">
                             <a class="nav-link links--principales" aria-current="page" href="#">La conferencia</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item d-flex justify-content-end">
                             <a class="nav-link links" href="#oradores">Los oradores</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item d-flex justify-content-end">
                             <a class="nav-link links" href="#lugar-fecha">El lugar y la fecha</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item d-flex justify-content-end">
                             <a class="nav-link links" href="#conviertete">Conviértete en orador</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item d-flex justify-content-end">
                             <a class="nav-link links--final" href="#tickets">Comprar tickets</a>
                         </li>
                     </ul>
@@ -67,14 +67,14 @@
         </section>
 <!--         <section class="container-fluid section__oradores">
             <div class="row">
-                <div class="col ps-0 pe-0 oradores__title">
+                <div class="col oradores__title">
                     <p class="p__oradores">CONOCE A LOS</p>
                     <h3>ORADORES</h3>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-12 ms-0 me-0 ps-0 pe-0 d-flex justify-content-center">
-                    <div class="cards__images ms-0 me-0 ps-0 pe-0" style="width: 20rem;">
+                <div class="col ms-0 me-0 d-flex justify-content-center">
+                    <div class="cards__images ms-0 me-0" style="width: 20rem;">
                         <img src="images/steve.jpg" class="card-img-top img-fluid" alt="Steve Jobs">
                         <div class="card-body cards__text">
                             <span class="badge text-bg-warning">JavaScript</span>
@@ -84,8 +84,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-12 ms-0 me-0 ps-0 pe-0 d-flex justify-content-center">
-                    <div class="card cards__images ms-0 me-0 ps-0 pe-0" style="width: 20rem;">
+                <div class="col ms-0 me-0 d-flex justify-content-center">
+                    <div class="card cards__images ms-0 me-0" style="width: 20rem;">
                         <img src="images/bill.jpg" class="card-img-top img-fluid" alt="Bill Gates">
                         <div class="card-body cards__text">
                             <span class="badge text-bg-warning">JavaScript</span>
@@ -95,8 +95,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-12 ms-0 me-0 ps-0 pe-0 d-flex justify-content-center">    
-                    <div class="card cards__images ms-0 me-0 ps-0 pe-0" style="width: 20rem;">
+                <div class="col ms-0 me-0 d-flex justify-content-center">    
+                    <div class="card cards__images ms-0 me-0" style="width: 20rem;">
                         <img src="images/ada.jpeg" class="card-img-top img-fluid" alt="Ada Lovelace">
                         <div class="card-body cards__text">
                             <span class="badge text-bg-secondary">Negocios</span>
@@ -111,14 +111,16 @@
 
 
 
-        <section class="section__oradores">
-            <div class="oradores__title">
-                <p class="p__oradores">CONOCE A LOS</p>
-                <h3>ORADORES</h3>
+        <section class="container-fluid section__oradores">
+            <div class="row m-0">
+                <div class="col oradores__title">
+                    <p class="p__oradores">CONOCE A LOS</p>
+                    <h3>ORADORES</h3>
+                </div>
             </div>
             <div class="oradores__cards">
                 <div class="cards__images">
-                    <img class="img" src="images/steve.jpg" alt="Steve Jobs">
+                    <img class="" src="images/steve.jpg" alt="Steve Jobs">
                     <div class="cards__text">
                         <span class="badge text-bg-warning">JavaScript</span>
                         <span class="badge text-bg-info bdg">React</span>
@@ -127,7 +129,7 @@
                     </div>
                 </div>
                 <div class="cards__images">
-                    <img class="img" src="images/bill.jpg" alt="Bill Gates">
+                    <img class="" src="images/bill.jpg" alt="Bill Gates">
                     <div class="cards__text">
                         <span class="badge text-bg-warning">JavaScript</span>
                         <span class="badge text-bg-info bdg">React</span>
@@ -136,7 +138,7 @@
                     </div>
                 </div>
                 <div class="cards__images">
-                    <img class="img" src="images/ada.jpeg" alt="Ada Lovelace">
+                    <img class="" src="images/ada.jpeg" alt="Ada Lovelace">
                     <div class="cards__text">
                         <span class="badge text-bg-secondary">Negocios</span>
                         <span class="badge text-bg-danger">Stratups</span>
@@ -153,10 +155,10 @@
 
         <section class="container-fluid">
             <div class="row">
-                <div class="col-lg-6 col-md-12 ps-0 pe-0">
+                <div class="col-lg-6 p-0">
                     <img class="place w-100 h-100" src="images/honolulu.jpg" alt="">
                 </div>
-                <div class="col-lg-6 col-md-12 ps-0 pe-0">
+                <div class="col-lg-6 p-0">
                     <div class="place w-100 h-100">
                         <h3 class="place__text--1">Bs As - Octubre</h3>
                         <p class="place__text--1">Buenos Aires es la provincia y localidad más grande del estado de Argentina, en los Estados Unidos. Honolulu es la más sureña de entre las principales cidudades estadounidenses. Aunque el nombre de Honolulu se refiere al área urbana en la costa sureste de la isla de Oahu, la ciudad y el condado de Honolulu han formado una ciudad-condado consolidada que cubre toda la ciudad (aproximadamente 600 km<sup>2</sup> de superficie).</p>
