@@ -47,6 +47,10 @@
     background-color: #29A744;
 }
 
+a{
+    color: white !important;
+    text-decoration: none;
+}
 
 .section__oradores{
     text-align: center;
@@ -136,8 +140,6 @@
 .section__footer{
     background-image: linear-gradient(to right, #1C3643, #1E5372);
     color: white;
-/*     position: absolute; */
-/*     top: -140px; */
 }
 
 .footer__list{
