@@ -48,7 +48,30 @@
     </header>
     <main>
         <div id="container" class="d-flex text-center justify-content-center" style="margin-top: 1rem;">
-<!-- --------------------------------CONTENEDOR PARA LAS CARDS-------------------------------------- -->
+            <div class="card border border-primary m-1" style="width: 18rem; border-radius: 0%;">
+                <div class="card-body" id=>
+                    <h5 class="card-title p-2">Estudiante</h5>
+                    <h6 class="card-text mb-2 p-2">Tienen un descuento</h6>
+                    <h6 class="card-subtitle mb-2 p-2">80%</h6>
+                    <p class="card-text text-muted p-2">* presentar documentación</p>
+                </div>
+            </div>
+            <div class="card border border-info m-1" style="width: 18rem; border-radius: 0%;">
+                <div class="card-body" id=>
+                    <h5 class="card-title p-2">Trainee</h5>
+                    <h6 class="card-text mb-2 p-2">Tienen un descuento</h6>
+                    <h6 class="card-subtitle mb-2 p-2">50%</h6>
+                    <p class="card-text text-muted p-2">* presentar documentación</p>
+                </div>
+            </div>
+            <div class="card border border-warning m-1" style="width: 18rem; border-radius: 0%;">
+                <div class="card-body" id=>
+                    <h5 class="card-title p-2">Junior</h5>
+                    <h6 class="card-text mb-2 p-2">Tienen un descuento</h6>
+                    <h6 class="card-subtitle mb-2 p-2">15%</h6>
+                    <p class="card-text text-muted p-2">* presentar documentación</p>
+                </div>
+            </div>
         </div>
         <div class="text-center">
             <p>VENTA</p>
@@ -72,26 +95,30 @@
                 <div class="row">
                     <div class="col p-2">
                         <label class="form-label">Cantidad</label>
-                        <input type="number" class="form-control" placeholder="Cantidad" aria-label="Last name">
+                        <input type="number" class="form-control" id="cantidad" placeholder="Cantidad" aria-label="Last name" min="1">
                     </div>
                     <div class="col p-2">
                         <label class="form-label">Categoría</label>
-                        <select class="form-select" id="select" aria-label="Select">
-                            <option value="1">Estudiante</option>
-                            <option value="2">Trainee</option>
-                            <option value="3">Junior</option>
+                        <select class="form-select" id="categoria" aria-label="categoria">
+                            <!-- <option selected>Elegir</option> -->
+                            <option value="0.8">Estudiante</option>
+                            <option value="0.5">Trainee</option>
+                            <option value="0.15">Junior</option>
                         </select>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col p-2">
-                        <input type="text" id="disabledTextInput" class="form-control bg-primary p-2 text-dark bg-opacity-25" placeholder="Total a pagar: $">
+                        <div class="d-flex form-control bg-primary p-2 text-dark bg-opacity-25">
+                            <div>Total a pagar: $</div>
+                            <div id="total"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col p-2">
                         <button style="width: 27.6rem;" class="btn btn-green " type="reset">Borrar</button>
-                        <button style="width: 27.6rem;" class="btn btn-green " type="button">Resumen</button>
+                        <button style="width: 27.6rem;" class="btn btn-green " type="button" id="resumen">Resumen</button>
                     </div>
                 </div>
             </form>
