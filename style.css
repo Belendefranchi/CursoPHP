@@ -15,11 +15,11 @@
 }
 
 .links{
-    color: #CFD4DA;
+    color: #CFD4DA !important;
 }
 
 .links--final{
-    color: #29A744;
+    color: #29A744 !important;
 }
 
 .images{
@@ -131,6 +131,10 @@ a{
     color: white;
 }
 
+.btn-green:hover{
+    background-color: #96C93E !important;
+}
+
 .p__form{
     text-align: left;
     color: gray;
@@ -152,4 +156,21 @@ a{
     list-style: none;
     text-align: center;
     margin: 2rem;
+}
+
+.form{
+    margin-top: 20px;
+}
+
+.tickets{
+    border: 0px;
+    background-color: transparent;
+}
+
+.tickets--btn{
+    border-color: turquoise;
+}
+
+.tickets--btn:hover{
+    border-color: #ffc107;
 }
