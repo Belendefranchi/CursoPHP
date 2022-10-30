@@ -3,6 +3,8 @@ let total = 0;
 
 const cantidad = document.getElementById('cantidad');
 cantidad.addEventListener("change", () => {
+    let cantidadRound = Math.round(cantidad.value)
+    cantidad.value = cantidadRound;
     console.log("La cantidad elegida es: " + cantidad.value);
 })
 
@@ -15,7 +17,7 @@ const totalValue = () => {
     if(cantidad.value == 0){
         alert("Complete los campos requeridos por favor");
     }else{
-        let total = (ticketValue - (ticketValue * categoria.value)) * parseInt(cantidad.value);
+        let total = (ticketValue - (ticketValue * categoria.value)) * cantidad.value;
         console.log("Cantidad: " + cantidad.value);
         console.log("Categoría: " + categoria.value);
         console.log("El total es: " + total.toFixed(2));
