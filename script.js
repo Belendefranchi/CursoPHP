@@ -15,7 +15,7 @@ const totalValue = () => {
     if(cantidad.value == 0){
         alert("Complete los campos requeridos por favor");
     }else{
-        let total = (ticketValue - (ticketValue * categoria.value)) * cantidad.value;
+        let total = (ticketValue - (ticketValue * categoria.value)) * parseInt(cantidad.value);
         console.log("Cantidad: " + cantidad.value);
         console.log("Categoría: " + categoria.value);
         console.log("El total es: " + total.toFixed(2));
@@ -24,5 +24,14 @@ const totalValue = () => {
     }
 }
 
+const cero = () =>{
+    let total = "";
+    const divTotal = document.getElementById('total');
+    divTotal.innerHTML = `&nbsp${total}`;
+}
+
 const btnResumen = document.getElementById('resumen');
 btnResumen.addEventListener("click", totalValue);
+
+const btnReset = document.getElementById('reset');
+btnReset.addEventListener("click", cero);
