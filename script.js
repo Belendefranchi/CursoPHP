@@ -15,7 +15,7 @@ const totalValue = () => {
     if(cantidad.value == 0){
         alert("Complete los campos requeridos por favor");
     }else{
-        let total = ticketValue * cantidad.value - (ticketValue * cantidad.value * categoria.value);
+        let total = (ticketValue - (ticketValue * categoria.value)) * cantidad.value;
         console.log("Cantidad: " + cantidad.value);
         console.log("Categoría: " + categoria.value);
         console.log("El total es: " + total.toFixed(2));
