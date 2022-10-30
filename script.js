@@ -25,7 +25,6 @@ const loadDiscounts = () => {
     const container = document.querySelector('#container');
     for (const element of discounts){
         let div = document.createElement('div');
-/*         div.setAttribute('class', 'tickets'); */
         div.innerHTML = `<button class="tickets" id="btn.${element.id}">  
                             <div class="card tickets--btn m-1" style="width: 18rem; border-radius: 0%;">
                                 <div class="card-body" id=>
