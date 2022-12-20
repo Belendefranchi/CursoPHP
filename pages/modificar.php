@@ -8,8 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../style.css">
-    <script defer src="../script.js"></script>
-    <title>Compra tus tickets</title>
+    <title>Modificar Usuario</title>
 </head>
 <body>
     <header>
@@ -41,7 +40,7 @@
                                 <a class="nav-link links--final" aria-current="page" href="tickets.html">Comprar tickets</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link links--final" aria-current="page" href="login.php">Iniciar Sesión</a>
+                                <a class="nav-link links--final" aria-current="page" href="login.html">Iniciar Sesión</a>
                             </li>
                         </ul>
                     </div>
@@ -50,78 +49,64 @@
         </nav>
     </header>
     <main>
-        <div id="container" class="d-flex text-center justify-content-center" style="margin-top: 1rem;">
-            <div class="card border border-primary m-1" style="width: 18rem; border-radius: 0%;">
-                <div class="card-body" id=>
-                    <h5 class="card-title p-2">Estudiante</h5>
-                    <h6 class="card-text mb-2 p-2">Tienen un descuento</h6>
-                    <h6 class="card-subtitle mb-2 p-2">80%</h6>
-                    <p class="card-text text-muted p-2">* presentar documentación</p>
-                </div>
-            </div>
-            <div class="card border border-info m-1" style="width: 18rem; border-radius: 0%;">
-                <div class="card-body" id=>
-                    <h5 class="card-title p-2">Trainee</h5>
-                    <h6 class="card-text mb-2 p-2">Tienen un descuento</h6>
-                    <h6 class="card-subtitle mb-2 p-2">50%</h6>
-                    <p class="card-text text-muted p-2">* presentar documentación</p>
-                </div>
-            </div>
-            <div class="card border border-warning m-1" style="width: 18rem; border-radius: 0%;">
-                <div class="card-body" id=>
-                    <h5 class="card-title p-2">Junior</h5>
-                    <h6 class="card-text mb-2 p-2">Tienen un descuento</h6>
-                    <h6 class="card-subtitle mb-2 p-2">15%</h6>
-                    <p class="card-text text-muted p-2">* presentar documentación</p>
-                </div>
-            </div>
-        </div>
+        <?php
+            
+            include("conexion.php");
+            
+            $email=$_GET["email"];
+            
+            $query="SELECT * FROM users WHERE email=:email";
+            
+            $resultado=$base->prepare($query);
+            $resultado->bindValue(":email", $email);
+            $resultado->execute();
+            $registros=$resultado->fetch(PDO::FETCH_ASSOC);
+
+            $nombre=$registros["nombre"];
+            $apellido=$registros["apellido"];
+            $categoria=$registros["categoria"];
+            $pass=$registros["pass"];
+
+        ?>
         <div class="text-center">
-            <p>VENTA</p>
-            <h1>VALOR DEL TICKET $200</h1>
+            <h1>Modificar Usuario</h1>
+            <?php echo $email?>
         </div>
-        <div id="form" class="mx-auto" style="width: 55rem;">
-            <form class="form">
+        <div id="form" class="mx-auto" style="width: 40rem;">
+            <form class="form" action="update.php" method="POST">
+                <input class="form-control" type="text" name="email" value="<?php echo $email?>" hidden>
                 <div class="row">
                     <div class="col p-2">
-                        <input type="text" class="form-control" placeholder="Nombre" aria-label="First name">
-                    </div>
-                    <div class="col p-2">
-                        <input type="text" class="form-control" placeholder="Apellido" aria-label="Last name">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input class="form-control" type="text" name="nombre" value="<?php echo $nombre?>" aria-label="Nombre">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col p-2">
-                        <input type="email" class="form-control" placeholder="Correo" aria-label="Email">
+                        <label for="apellido" class="form-label">Apellido</label>
+                        <input class="form-control" type="text" name="apellido" value="<?php echo $apellido?>" aria-label="Apellido">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col p-2">
-                        <label class="form-label">Cantidad</label>
-                        <input type="number" class="form-control" id="cantidad" placeholder="Cantidad" aria-label="Last name" min="1" pattern="[1-9]{0}">
+                        <label for="pass" class="form-label">Contraseña</label>
+                        <input class="form-control" type="text" name="pass" value="<?php echo $pass?>" aria-label="Contraseña">
                     </div>
+                </div>
+                <div class="row">
                     <div class="col p-2">
-                        <label class="form-label">Categoría</label>
-                        <select class="form-select" id="categoria" aria-label="categoria">
-                            <!-- <option selected>Elegir</option> -->
-                            <option value="0.8">Estudiante</option>
-                            <option value="0.5">Trainee</option>
-                            <option value="0.15">Junior</option>
+                        <label for="categoria" class="form-label">Categoría</label>
+                        <select class="form-select" type="text" name="categoria" aria-label="">
+                            <option value="<?php echo $categoria?>" selected><?php echo $categoria?></option>
+                            <option value="Público general">Público general</option>
+                            <option value="Orador">Orador</option>
                         </select>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col p-2">
-                        <div class="d-flex form-control bg-primary p-2 text-dark bg-opacity-25">
-                            <div>Total a pagar: $</div>
-                            <div id="total"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col p-2">
-                        <button style="width: 27.6rem;" class="btn btn-green " type="reset" id="reset">Borrar</button>
-                        <button style="width: 27.6rem;" class="btn btn-green " type="button" id="resumen">Resumen</button>
+                    <div class="col text-center">
+                        <input class="btn btn-green" type="submit" value="Modificar"></input>
+                        <input class="btn btn-green" type="button" value="Cancelar" onClick="history.go(-1);"></input>
                     </div>
                 </div>
             </form>

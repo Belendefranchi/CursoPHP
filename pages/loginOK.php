@@ -8,14 +8,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../style.css">
-    <script defer src="../script.js"></script>
-    <title>Compra tus tickets</title>
+    <title>Login</title>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg nav">
             <div class="container-fluid">
-                <a class="navbar-brand" href="../index.html">
+                <a class="navbar-brand" href="#">
                     <img src="../images/codoacodo.png" alt="Logo" width="100" class="d-inline-block align-text-top">
                 </a>
                 <a class="navbar-brand links--principales">Conf Bs As</a>
@@ -49,82 +48,52 @@
             </div>
         </nav>
     </header>
-    <main>
-        <div id="container" class="d-flex text-center justify-content-center" style="margin-top: 1rem;">
-            <div class="card border border-primary m-1" style="width: 18rem; border-radius: 0%;">
-                <div class="card-body" id=>
-                    <h5 class="card-title p-2">Estudiante</h5>
-                    <h6 class="card-text mb-2 p-2">Tienen un descuento</h6>
-                    <h6 class="card-subtitle mb-2 p-2">80%</h6>
-                    <p class="card-text text-muted p-2">* presentar documentación</p>
-                </div>
-            </div>
-            <div class="card border border-info m-1" style="width: 18rem; border-radius: 0%;">
-                <div class="card-body" id=>
-                    <h5 class="card-title p-2">Trainee</h5>
-                    <h6 class="card-text mb-2 p-2">Tienen un descuento</h6>
-                    <h6 class="card-subtitle mb-2 p-2">50%</h6>
-                    <p class="card-text text-muted p-2">* presentar documentación</p>
-                </div>
-            </div>
-            <div class="card border border-warning m-1" style="width: 18rem; border-radius: 0%;">
-                <div class="card-body" id=>
-                    <h5 class="card-title p-2">Junior</h5>
-                    <h6 class="card-text mb-2 p-2">Tienen un descuento</h6>
-                    <h6 class="card-subtitle mb-2 p-2">15%</h6>
-                    <p class="card-text text-muted p-2">* presentar documentación</p>
-                </div>
-            </div>
-        </div>
+    <main style="min-height: 65vh;">
         <div class="text-center">
-            <p>VENTA</p>
-            <h1>VALOR DEL TICKET $200</h1>
+            <h1>Bienvenido!</h1>
         </div>
-        <div id="form" class="mx-auto" style="width: 55rem;">
-            <form class="form">
-                <div class="row">
-                    <div class="col p-2">
-                        <input type="text" class="form-control" placeholder="Nombre" aria-label="First name">
-                    </div>
-                    <div class="col p-2">
-                        <input type="text" class="form-control" placeholder="Apellido" aria-label="Last name">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col p-2">
-                        <input type="email" class="form-control" placeholder="Correo" aria-label="Email">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col p-2">
-                        <label class="form-label">Cantidad</label>
-                        <input type="number" class="form-control" id="cantidad" placeholder="Cantidad" aria-label="Last name" min="1" pattern="[1-9]{0}">
-                    </div>
-                    <div class="col p-2">
-                        <label class="form-label">Categoría</label>
-                        <select class="form-select" id="categoria" aria-label="categoria">
-                            <!-- <option selected>Elegir</option> -->
-                            <option value="0.8">Estudiante</option>
-                            <option value="0.5">Trainee</option>
-                            <option value="0.15">Junior</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col p-2">
-                        <div class="d-flex form-control bg-primary p-2 text-dark bg-opacity-25">
-                            <div>Total a pagar: $</div>
-                            <div id="total"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col p-2">
-                        <button style="width: 27.6rem;" class="btn btn-green " type="reset" id="reset">Borrar</button>
-                        <button style="width: 27.6rem;" class="btn btn-green " type="button" id="resumen">Resumen</button>
-                    </div>
-                </div>
-            </form>
+        <div class="text-center" style="width: 55rem; margin: auto;">
+            <table class="table table-striped">
+                <thead>
+                    <tr class="table-dark">
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Categoría</th>
+                        <th scope="col">Modificar</th>
+                        <th scope="col">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                    include("conexion.php");
+                    include("funciones.php");
+
+
+                    $query="SELECT nombre, apellido, email, categoria FROM users";
+
+                    $resultado=$base->prepare($query);
+                    $resultado->execute();     
+                    $users=$resultado->fetchAll(PDO::FETCH_OBJ);
+                    $resultado->closeCursor ();
+
+                    foreach($users as $user){
+                        ?>
+                            <tr>
+                                <td><?php echo $user->nombre?></td>
+                                <td><?php echo $user->apellido?></td>
+                                <td><?php echo $user->email?></td>
+                                <td><?php echo $user->categoria?></td>
+
+                                <td><a href="modificar.php?email=<?php echo $user->email?>"><input class="btn btn-green" type='button' value='Modificar'></a></td></td>
+                                <td><a href="eliminar.php?email=<?php echo $user->email?>"><input class="btn btn-green" type='button' value='Eliminar'></a></td></td>
+
+                            </tr>
+                        <?php
+                    }
+                ?>
+                </tbody>
+            </table>
         </div>
     </main>
     <footer>
