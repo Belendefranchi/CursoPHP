@@ -40,7 +40,7 @@
                                 <a class="nav-link links--final" aria-current="page" href="tickets.html">Comprar tickets</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link links--final" aria-current="page" href="login.php">Iniciar Sesión</a>
+                                <a class="nav-link links--final" aria-current="page" href="logoff.php">Cerrar Sesión</a>
                             </li>
                         </ul>
                     </div>
@@ -49,6 +49,12 @@
         </nav>
     </header>
     <main style="min-height: 65vh;">
+        <?php
+            session_start();
+            if (!isset($_SESSION["login"])){
+                header("location: login.php");
+            }
+        ?>
         <div class="text-center">
             <h1>Bienvenido!</h1>
         </div>
@@ -89,6 +95,7 @@
                                 <td><a href="eliminar.php?email=<?php echo $user->email?>"><input class="btn btn-green" type='button' value='Eliminar'></a></td></td>
 
                             </tr>
+                            
                         <?php
                     }
                 ?>
@@ -125,5 +132,6 @@
     </footer>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

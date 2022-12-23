@@ -40,7 +40,7 @@
                                 <a class="nav-link links--final" aria-current="page" href="tickets.html">Comprar tickets</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link links--final" aria-current="page" href="login.html">Iniciar Sesión</a>
+                                <a class="nav-link links--final" aria-current="page" href="logoff.php">Cerrar Sesión</a>
                             </li>
                         </ul>
                     </div>
@@ -50,7 +50,11 @@
     </header>
     <main>
         <?php
-            
+            session_start();
+            if (!isset($_SESSION["login"])){
+                header("location: login.php");
+            }
+
             include("conexion.php");
             
             $email=$_GET["email"];

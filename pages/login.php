@@ -49,11 +49,50 @@
         </nav>
     </header>
     <main>
+        <?php
+        include("conexion.php");
+        session_start();
+        if (isset($_SESSION["login"])){
+            header("location: loginOK.php");
+        }
+        if (isset($_REQUEST["loginBtn"])){
+            $email = $_REQUEST["email"];
+            $pass = $_REQUEST["pass"];
+
+            if (empty($email)){
+                $error = "Por favor ingrese email";
+                echo '<div class="text-center mb-4"><strong>'.$error.'</strong></div>';
+            }else if (empty($pass)){
+                $error = "Por favor ingrese la contraseña";
+                echo '<div class="text-center mb-4"><strong>'.$error.'</strong></div>';
+            }else if ($email and $pass){
+                try{
+                    $query="SELECT * FROM users WHERE email=:email AND pass=:pass";
+                    $resultado=$base->prepare($query);
+                    $resultado->bindValue(":email", $email); 
+                    $resultado->bindValue(":pass", $pass);
+                    $resultado->execute();
+
+                    $numero_registro=$resultado->rowCount();
+                    
+                    if ($numero_registro!=0){
+                        $_SESSION["login"] = $email;
+                        header("location: loginOK.php");
+                    }else{
+                        $error = "Correo electrónico y/o contraseña incorrectos";
+                        echo '<div class="text-center mb-4"><strong>'.$error.'</strong></div>';
+                    }
+                }catch (PDOException $e) {
+                    $e->getMessage();
+                }
+            }
+        }
+        ?>
         <div class="text-center">
             <h1>Inicia Sesión</h1>
         </div>
         <div id="form" class="mx-auto" style="width: 40rem;">
-            <form class="form" action="comprueba_login.php" method="GET">
+            <form class="form" method="POST">
                 <div class="row">
                     <div class="col p-2">
                         <input class="form-control" type="text" name="email" placeholder="Correo" aria-label="Email">
@@ -66,7 +105,7 @@
                 </div>
                 <div class="row">
                     <div class="col p-2 text-center">
-                        <input class="btn btn-green" type="submit" value="Iniciar Sesión"></input>
+                        <input class="btn btn-green" type="submit" name="loginBtn" value="Iniciar Sesión"></input>
                     </div>
                 </div>
                 <div class="row">
@@ -107,5 +146,6 @@
     </footer>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
 </body>
 </html>

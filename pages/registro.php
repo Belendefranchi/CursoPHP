@@ -16,7 +16,7 @@
         $numero_registro=$resultado->rowCount();
         
         if ($numero_registro!=0){
-            header("location:registroRep.html");
+            header("location:login.php");
         }else{ 
             $queryInsert="INSERT INTO users (nombre, apellido, email, pass, categoria) VALUES (:nombre, :apellido, :email, :pass, :cat)";
             $resultado=$base->prepare($queryInsert);
@@ -27,7 +27,7 @@
             $resultado->bindValue(":cat", $cat);
             $resultado->execute();
 
-            header("location:registroOK.html");
+            header("location:login.php");
         }
 
 ?>
