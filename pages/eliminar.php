@@ -10,6 +10,10 @@
     
 
 <?php
+    session_start();
+    if (!isset($_SESSION["login"])){
+        header("location: login.php");
+    }
     $email=$_GET['email'];
 
     function deleteUser($email){

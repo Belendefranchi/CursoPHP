@@ -49,57 +49,82 @@
         </nav>
     </header>
     <main style="min-height: 65vh;">
-        <?php
-            session_start();
-            if (!isset($_SESSION["login"])){
-                header("location: login.php");
-            }
-        ?>
-        <div class="text-center">
+        <div class="text-center p-4">
             <h1>Bienvenido!</h1>
         </div>
         <div class="text-center" style="width: 55rem; margin: auto;">
             <table class="table table-striped">
-                <thead>
-                    <tr class="table-dark">
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Apellido</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Categoría</th>
-                        <th scope="col">Modificar</th>
-                        <th scope="col">Eliminar</th>
-                    </tr>
-                </thead>
-                <tbody>
                 <?php
+                    session_start();
+                    if (!isset($_SESSION["login"])){
+                        header("location: login.php");
+                    }
+                    echo '<div class="text-center mb-4"><h3>'.$_SESSION["name"].'</h3></div>';
                     include("conexion.php");
                     include("funciones.php");
 
-
-                    $query="SELECT nombre, apellido, email, categoria FROM users";
+                    $query="SELECT nombre, apellido, email, categoria FROM users WHERE nombre <> 'admin'";
 
                     $resultado=$base->prepare($query);
                     $resultado->execute();     
-                    $users=$resultado->fetchAll(PDO::FETCH_OBJ);
+                    $users=$resultado->fetchAll(PDO::FETCH_ASSOC);
                     $resultado->closeCursor ();
 
-                    foreach($users as $user){
+                    if($_SESSION["name"]==="admin"){
                         ?>
-                            <tr>
-                                <td><?php echo $user->nombre?></td>
-                                <td><?php echo $user->apellido?></td>
-                                <td><?php echo $user->email?></td>
-                                <td><?php echo $user->categoria?></td>
-
-                                <td><a href="modificar.php?email=<?php echo $user->email?>"><input class="btn btn-green" type='button' value='Modificar'></a></td></td>
-                                <td><a href="eliminar.php?email=<?php echo $user->email?>"><input class="btn btn-green" type='button' value='Eliminar'></a></td></td>
-
+                        <thead>
+                            <tr class="table-dark">
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Apellido</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Categoría</th>
+                                <th scope="col">Modificar</th>
+                                <th scope="col">Eliminar</th>
                             </tr>
-                            
+                        </thead>
+                        <tbody>
+                            <?php
+                                foreach($users as $user){
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $user["nombre"]?></td>
+                                        <td><?php echo $user["apellido"]?></td>
+                                        <td><?php echo $user["email"]?></td>
+                                        <td><?php echo $user["categoria"]?></td>
+
+                                        <td><a href="modificar.php?email=<?php echo $user["email"]?>"><input class="btn btn-green" type='button' value='Modificar'></a></td></td>
+                                        <td><a href="eliminar.php?email=<?php echo $user["email"]?>"><input class="btn btn-green" type='button' value='Eliminar'></a></td></td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                        </tbody>
                         <?php
+                    }else{
+                        ?>
+                        <thead>
+                            <tr class="table-dark">
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Apellido</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Categoría</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                foreach($users as $user){
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $user["nombre"]?></td>
+                                        <td><?php echo $user["apellido"]?></td>
+                                        <td><?php echo $user["email"]?></td>
+                                        <td><?php echo $user["categoria"]?></td>
+                                    </tr>
+                                    <?php
+                                }
                     }
-                ?>
-                </tbody>
+                                    ?>
+                        </tbody>
             </table>
         </div>
     </main>

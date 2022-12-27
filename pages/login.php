@@ -58,23 +58,25 @@
         if (isset($_REQUEST["loginBtn"])){
             $email = $_REQUEST["email"];
             $pass = $_REQUEST["pass"];
+            $nombre = $_REQUEST["nombre"];
 
             if ($email and $pass){
                 try{
-                    $query="SELECT * FROM users WHERE email=:email AND pass=:pass";
+                    $query="SELECT nombre, email, pass FROM users WHERE email=:email AND pass=:pass";
                     $resultado=$base->prepare($query);
                     $resultado->bindValue(":email", $email); 
                     $resultado->bindValue(":pass", $pass);
                     $resultado->execute();
-
+                    $users=$resultado->fetch(PDO::FETCH_ASSOC);
+                    
                     $numero_registro=$resultado->rowCount();
                     
                     if ($numero_registro!=0){
                         $_SESSION["login"] = $email;
+                        $_SESSION["name"] = $users["nombre"];
                         header("location: loginOK.php");
                     }else{
-                        $error = "Correo electrónico y/o contraseña incorrectos";
-                        echo '<div class="text-center mb-4"><strong>'.$error.'</strong></div>';
+                        echo '<div class="text-center mb-4"><strong>Correo electrónico y/o contraseña incorrectos</strong></div>';
                     }
                 }catch (PDOException $e) {
                     $e->getMessage();
@@ -89,21 +91,17 @@
             <form class="row g-3 needs-validation" method="POST" novalidate>
                 <div class="row">
                     <div class="col p-2">
-                        <div class="input-group has-validation">
-                            <input type="text" class="form-control" name="email" placeholder="Correo" required>
-                            <div class="invalid-feedback">
-                                Por favor introduce un email válido
-                            </div>
+                        <input type="text" class="form-control" name="email" placeholder="Correo" required>
+                        <div class="invalid-feedback">
+                            Por favor introduce un email válido
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col p-2">
-                        <div class="input-group has-validation">
-                            <input type="password" class="form-control" name="pass" placeholder="Contraseña" required>
-                            <div class="invalid-feedback">
-                                Por favor introduce tu contraseña
-                            </div>
+                        <input type="password" class="form-control" name="pass" placeholder="Contraseña" required>
+                        <div class="invalid-feedback">
+                            Por favor introduce tu contraseña
                         </div>
                     </div>
                 </div>
@@ -114,7 +112,7 @@
             <div class="row">
                 <div class="col p-2 text-center">
                     <p>¿No tienes una cuenta?</p>
-                    <a class="nav-link links--final" aria-current="page" href="registro.html">Regístrate</a>
+                    <a class="nav-link links--final" aria-current="page" href="registro.php">Regístrate</a>
                 </div>
             </div>
         </div>

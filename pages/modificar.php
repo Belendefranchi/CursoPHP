@@ -77,24 +77,33 @@
             <?php echo $email?>
         </div>
         <div id="form" class="mx-auto" style="width: 40rem;">
-            <form class="form" action="update.php" method="POST">
+            <form class="form needs-validation" action="update.php" method="POST" novalidate>
                 <input class="form-control" type="text" name="email" value="<?php echo $email?>" hidden>
                 <div class="row">
                     <div class="col p-2">
                         <label for="nombre" class="form-label">Nombre</label>
-                        <input class="form-control" type="text" name="nombre" value="<?php echo $nombre?>" aria-label="Nombre">
+                        <input class="form-control" type="text" name="nombre" value="<?php echo $nombre?>" aria-label="Nombre" required>
+                        <div class="invalid-feedback">
+                            Por favor introduce un nombre
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col p-2">
                         <label for="apellido" class="form-label">Apellido</label>
-                        <input class="form-control" type="text" name="apellido" value="<?php echo $apellido?>" aria-label="Apellido">
+                        <input class="form-control" type="text" name="apellido" value="<?php echo $apellido?>" aria-label="Apellido" required>
+                        <div class="invalid-feedback">
+                            Por favor introduce un apellido
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col p-2">
                         <label for="pass" class="form-label">Contraseña</label>
-                        <input class="form-control" type="text" name="pass" value="<?php echo $pass?>" aria-label="Contraseña">
+                        <input class="form-control" type="text" name="pass" value="<?php echo $pass?>" aria-label="Contraseña" required>
+                        <div class="invalid-feedback">
+                            Por favor introduce una contraseña
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -143,6 +152,27 @@
             </ul>
         </section>
     </footer>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+
+            form.classList.add('was-validated')
+            }, false)
+        })
+        })()
+    </script>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 </body>
