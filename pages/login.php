@@ -59,13 +59,7 @@
             $email = $_REQUEST["email"];
             $pass = $_REQUEST["pass"];
 
-            if (empty($email)){
-                $error = "Por favor ingrese email";
-                echo '<div class="text-center mb-4"><strong>'.$error.'</strong></div>';
-            }else if (empty($pass)){
-                $error = "Por favor ingrese la contraseña";
-                echo '<div class="text-center mb-4"><strong>'.$error.'</strong></div>';
-            }else if ($email and $pass){
+            if ($email and $pass){
                 try{
                     $query="SELECT * FROM users WHERE email=:email AND pass=:pass";
                     $resultado=$base->prepare($query);
@@ -88,33 +82,41 @@
             }
         }
         ?>
-        <div class="text-center">
+        <div class="text-center p-4">
             <h1>Inicia Sesión</h1>
         </div>
         <div id="form" class="mx-auto" style="width: 40rem;">
-            <form class="form" method="POST">
+            <form class="row g-3 needs-validation" method="POST" novalidate>
                 <div class="row">
                     <div class="col p-2">
-                        <input class="form-control" type="text" name="email" placeholder="Correo" aria-label="Email">
+                        <div class="input-group has-validation">
+                            <input type="text" class="form-control" name="email" placeholder="Correo" required>
+                            <div class="invalid-feedback">
+                                Por favor introduce un email válido
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col p-2">
-                        <input class="form-control" type="password" name="pass" placeholder="Contraseña" aria-label="Password">
+                        <div class="input-group has-validation">
+                            <input type="password" class="form-control" name="pass" placeholder="Contraseña" required>
+                            <div class="invalid-feedback">
+                                Por favor introduce tu contraseña
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col p-2 text-center">
-                        <input class="btn btn-green" type="submit" name="loginBtn" value="Iniciar Sesión"></input>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col p-2 text-center">
-                        <p>¿No tienes una cuenta?</p>
-                        <a class="nav-link links--final" aria-current="page" href="registro.html">Regístrate</a>
-                    </div>
+                <div class="col-12 text-center">
+                    <input class="btn btn-green" type="submit" name="loginBtn" value="Inciar Sesión"></input>
                 </div>
             </form>
+            <div class="row">
+                <div class="col p-2 text-center">
+                    <p>¿No tienes una cuenta?</p>
+                    <a class="nav-link links--final" aria-current="page" href="registro.html">Regístrate</a>
+                </div>
+            </div>
         </div>
     </main>
     <footer>
@@ -144,6 +146,27 @@
             </ul>
         </section>
     </footer>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+
+            form.classList.add('was-validated')
+            }, false)
+        })
+        })()
+    </script>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 

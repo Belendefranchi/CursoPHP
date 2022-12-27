@@ -26,7 +26,8 @@
             $resultado->bindValue(":pass", $pass);
             $resultado->bindValue(":cat", $cat);
             $resultado->execute();
-
+            
+            echo '<div class="text-center mb-4"><strong>Ya estas registrado! por favor inicia sesión con tus datos.</strong></div>';
             header("location:login.php");
         }
 
