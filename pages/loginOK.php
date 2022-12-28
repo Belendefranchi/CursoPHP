@@ -1,3 +1,9 @@
+<?php
+    session_start();
+    if (!isset($_SESSION["login"])){
+        header("location: login.php");
+    }
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -49,83 +55,83 @@
         </nav>
     </header>
     <main style="min-height: 65vh;">
+        <?php
+            include("conexion.php");
+            include("funciones.php");
+            
+            $query="SELECT nombre, apellido, email, categoria FROM users WHERE nombre <> 'admin'";
+    
+            $resultado=$base->prepare($query);
+            $resultado->execute();     
+            $users=$resultado->fetchAll(PDO::FETCH_ASSOC);
+            $resultado->closeCursor ();
+
+        ?>
         <div class="text-center p-4">
             <h1>Bienvenido!</h1>
         </div>
+        <div class="text-center mb-4">
+            <h3><?php echo $_SESSION["name"]?></h3>
+        </div>
         <div class="text-center" style="width: 55rem; margin: auto;">
-            <table class="table table-striped">
-                <?php
-                    session_start();
-                    if (!isset($_SESSION["login"])){
-                        header("location: login.php");
-                    }
-                    echo '<div class="text-center mb-4"><h3>'.$_SESSION["name"].'</h3></div>';
-                    include("conexion.php");
-                    include("funciones.php");
-
-                    $query="SELECT nombre, apellido, email, categoria FROM users WHERE nombre <> 'admin'";
-
-                    $resultado=$base->prepare($query);
-                    $resultado->execute();     
-                    $users=$resultado->fetchAll(PDO::FETCH_ASSOC);
-                    $resultado->closeCursor ();
-
-                    if($_SESSION["name"]==="admin"){
-                        ?>
-                        <thead>
-                            <tr class="table-dark">
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Apellido</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Categoría</th>
-                                <th scope="col">Modificar</th>
-                                <th scope="col">Eliminar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                                foreach($users as $user){
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $user["nombre"]?></td>
-                                        <td><?php echo $user["apellido"]?></td>
-                                        <td><?php echo $user["email"]?></td>
-                                        <td><?php echo $user["categoria"]?></td>
-
-                                        <td><a href="modificar.php?email=<?php echo $user["email"]?>"><input class="btn btn-green" type='button' value='Modificar'></a></td></td>
-                                        <td><a href="eliminar.php?email=<?php echo $user["email"]?>"><input class="btn btn-green" type='button' value='Eliminar'></a></td></td>
-                                    </tr>
+                <table class="table table-striped">
+                    <?php
+                        if($_SESSION["name"]==="admin"){
+                            ?>
+                            <thead>
+                                <tr class="table-dark">
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Apellido</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Categoría</th>
+                                    <th scope="col">Modificar</th>
+                                    <th scope="col">Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 <?php
-                                }
-                                ?>
-                        </tbody>
-                        <?php
-                    }else{
-                        ?>
-                        <thead>
-                            <tr class="table-dark">
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Apellido</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Categoría</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                                foreach($users as $user){
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $user["nombre"]?></td>
-                                        <td><?php echo $user["apellido"]?></td>
-                                        <td><?php echo $user["email"]?></td>
-                                        <td><?php echo $user["categoria"]?></td>
-                                    </tr>
+                                    foreach($users as $user){
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $user["nombre"]?></td>
+                                            <td><?php echo $user["apellido"]?></td>
+                                            <td><?php echo $user["email"]?></td>
+                                            <td><?php echo $user["categoria"]?></td>
+                                            <td><a href="modificar.php?email=<?php echo $user["email"]?>"><button class="btn btn-green" type='submit'>Modificar</button></a></td></td>
+                                            <td><a href="eliminar.php?email=<?php echo $user["email"]?>"><button class="btn btn-green" type='submit'>Eliminar</button></a></td></td>
+                                        </tr>
                                     <?php
-                                }
-                    }
+                                    }
                                     ?>
-                        </tbody>
-            </table>
+                            </tbody>
+                            <?php
+                        }else{
+                            ?>
+                            <thead>
+                                <tr class="table-dark">
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Apellido</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Categoría</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    foreach($users as $user){
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $user["nombre"]?></td>
+                                            <td><?php echo $user["apellido"]?></td>
+                                            <td><?php echo $user["email"]?></td>
+                                            <td><?php echo $user["categoria"]?></td>
+                                        </tr>
+                                        <?php
+                                    }
+                        }
+                                        ?>
+                            </tbody>
+                </table>
+            </form>
         </div>
     </main>
     <footer>
@@ -157,6 +163,5 @@
     </footer>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

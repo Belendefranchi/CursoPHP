@@ -58,6 +58,9 @@
                 $email=$_REQUEST["email"];
                 $pass=$_REQUEST["pass"];
                 $cat=$_REQUEST["cat"];
+                $host=$_SERVER['REMOTE_ADDR'];
+
+                $hash = password_hash($pass, PASSWORD_DEFAULT, ['cost' => 10]);
 
                 if ($email){
                     try{
@@ -71,13 +74,15 @@
                         if ($numero_registro!=0){
                             echo '<div class="text-center mb-4 p-2"><strong>Ese mail ya fue registrado, intenta nuevamente con uno distinto</strong></div>';
                         }else{ 
-                            $queryInsert="INSERT INTO users (nombre, apellido, email, pass, categoria) VALUES (:nombre, :apellido, :email, :pass, :cat)";
+                            $queryInsert="INSERT INTO users (nombre, apellido, email, pass, categoria, host, date_time) VALUES (:nombre, :apellido, :email, :pass, :cat, :host, CURRENT_TIMESTAMP)";
                             $resultado=$base->prepare($queryInsert);
                             $resultado->bindValue(":nombre", $nombre);
                             $resultado->bindValue(":apellido", $apellido);
                             $resultado->bindValue(":email", $email);	  		
-                            $resultado->bindValue(":pass", $pass);
+                            $resultado->bindValue(":pass", $hash);
                             $resultado->bindValue(":cat", $cat);
+                            $resultado->bindValue(":host", $host);
+
                             $resultado->execute();
                             
                             echo    '<div class="mx-auto text-center mb-4 p-2">

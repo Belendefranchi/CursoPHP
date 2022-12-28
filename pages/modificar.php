@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    if (!isset($_SESSION["login"])){
+        header("location: login.php");
+        exit;
+    }
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,7 +15,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../style.css">
-    <title>Modificar Usuario</title>
+    <title>Modificar Usuario</title>    
 </head>
 <body>
     <header>
@@ -48,34 +55,37 @@
             </div>
         </nav>
     </header>
-    <main>
-        <?php
-            session_start();
-            if (!isset($_SESSION["login"])){
-                header("location: login.php");
-            }
-
-            include("conexion.php");
-            
-            $email=$_GET["email"];
-            
-            $query="SELECT * FROM users WHERE email=:email";
-            
-            $resultado=$base->prepare($query);
-            $resultado->bindValue(":email", $email);
-            $resultado->execute();
-            $registros=$resultado->fetch(PDO::FETCH_ASSOC);
-
-            $nombre=$registros["nombre"];
-            $apellido=$registros["apellido"];
-            $categoria=$registros["categoria"];
-            $pass=$registros["pass"];
-
-        ?>
-        <div class="text-center">
+    <main style="min-height: 65vh;">
+        <div class="text-center p-4">
             <h1>Modificar Usuario</h1>
-            <?php echo $email?>
         </div>
+        <div class="text-center mb-4">
+            <h3><?php echo $_SESSION["name"]?></h3>
+        </div>
+        <?php
+            //bdefranchi     Qj&MLLWm7P%HSVtX!AvP     (sitio)            //id20071528_login      ow-kxxV_($&R%4oH     (base)
+
+            $email=$_GET["email"];
+            if($email==="admin@codo.com.ar"){
+                echo '<div class="text-center mb-4">
+                        <h3>El usuario administrador no puede ser modificado 😉</h3>
+                    </div>
+                    <div class="text-center">
+                        <input class="btn btn-green" type="button" value="Volver" onClick="history.go(-1);"></input>
+                    </div>
+                    ';
+            }else{
+                include("conexion.php");
+                $query="SELECT nombre, apellido, categoria, pass FROM users WHERE email=:email";
+                $resultado=$base->prepare($query);
+                $resultado->bindValue(":email", $email);
+                $resultado->execute();
+                $registros=$resultado->fetch(PDO::FETCH_ASSOC);
+
+                $nombre=$registros["nombre"];
+                $apellido=$registros["apellido"];
+                $categoria=$registros["categoria"];
+        ?>
         <div id="form" class="mx-auto" style="width: 40rem;">
             <form class="form needs-validation" action="update.php" method="POST" novalidate>
                 <input class="form-control" type="text" name="email" value="<?php echo $email?>" hidden>
@@ -100,7 +110,7 @@
                 <div class="row">
                     <div class="col p-2">
                         <label for="pass" class="form-label">Contraseña</label>
-                        <input class="form-control" type="text" name="pass" value="<?php echo $pass?>" aria-label="Contraseña" required>
+                        <input class="form-control" type="text" name="pass" value="" aria-label="Contraseña" required>
                         <div class="invalid-feedback">
                             Por favor introduce una contraseña
                         </div>
@@ -124,6 +134,9 @@
                 </div>
             </form>
         </div>
+        <?php
+            }
+        ?>
     </main>
     <footer>
         <section class="section__footer">

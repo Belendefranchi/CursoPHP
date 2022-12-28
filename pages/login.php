@@ -1,3 +1,9 @@
+<?php
+    session_start();
+    if (isset($_SESSION["login"])){
+        header("location: loginOK.php");
+    }
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -51,30 +57,34 @@
     <main>
         <?php
         include("conexion.php");
-        session_start();
-        if (isset($_SESSION["login"])){
-            header("location: loginOK.php");
-        }
         if (isset($_REQUEST["loginBtn"])){
             $email = $_REQUEST["email"];
             $pass = $_REQUEST["pass"];
-            $nombre = $_REQUEST["nombre"];
 
-            if ($email and $pass){
+            $hash = password_hash($pass, PASSWORD_DEFAULT, ['cost' => 10]);
+
+            if($email and $pass){
                 try{
-                    $query="SELECT nombre, email, pass FROM users WHERE email=:email AND pass=:pass";
+                    $query="SELECT nombre, email, pass FROM users WHERE email=:email";
                     $resultado=$base->prepare($query);
-                    $resultado->bindValue(":email", $email); 
-                    $resultado->bindValue(":pass", $pass);
+                    $resultado->bindValue(":email", $email);
                     $resultado->execute();
                     $users=$resultado->fetch(PDO::FETCH_ASSOC);
                     
-                    $numero_registro=$resultado->rowCount();
+                    if($users != null){
                     
-                    if ($numero_registro!=0){
-                        $_SESSION["login"] = $email;
-                        $_SESSION["name"] = $users["nombre"];
-                        header("location: loginOK.php");
+                        $hash = $users["pass"];
+
+                        if (password_verify($pass, $hash)){
+
+                            $numero_registro=$resultado->rowCount();
+                            
+                            if ($numero_registro!=0){
+                                $_SESSION["login"] = $email;
+                                $_SESSION["name"] = $users["nombre"];
+                                header("location: loginOK.php");
+                            }
+                        }
                     }else{
                         echo '<div class="text-center mb-4"><strong>Correo electrónico y/o contraseña incorrectos</strong></div>';
                     }
