@@ -2,6 +2,7 @@
     session_start();
     if (isset($_SESSION["login"])){
         header("location: loginOK.php");
+        die();
     }
 ?>
 <!DOCTYPE html>
@@ -83,6 +84,7 @@
                                 $_SESSION["login"] = $email;
                                 $_SESSION["name"] = $users["nombre"];
                                 header("location: loginOK.php");
+                                die();
                             }
                         }
                     }else{

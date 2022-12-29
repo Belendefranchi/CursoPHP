@@ -18,5 +18,6 @@ $resultado->bindValue(":email", $email);
 $resultado->execute();
 
 header("Location: loginOK.php");
+die();
 
 ?>
