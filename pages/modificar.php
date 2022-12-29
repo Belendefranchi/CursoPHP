@@ -63,8 +63,6 @@
             <h3><?php echo $_SESSION["name"]?></h3>
         </div>
         <?php
-            //bdefranchi     Qj&MLLWm7P%HSVtX!AvP     (sitio)            //id20071528_login      ow-kxxV_($&R%4oH     (base)
-
             $email=$_GET["email"];
             if($email==="admin@codo.com.ar"){
                 echo '<div class="text-center mb-4">
