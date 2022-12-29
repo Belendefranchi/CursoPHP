@@ -92,13 +92,13 @@
                                         </div>';
                             }catch (PDOException $e) {
                                 $e->getMessage();
-                                echo    '<div class="mx-auto text-center mb-4 p-2">
-                                            <h3>No puedes inyectar código 😉</h3>
-                                        </div>';
                             }
                         }
                     }catch (PDOException $e) {
                         $e->getMessage();
+                        echo    '<div class="mx-auto text-center mb-4 p-2">
+                                    <h3>No puedes inyectar código 😉</h3>
+                                </div>';
                     }
                 }
             }
