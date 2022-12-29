@@ -59,8 +59,8 @@
         <?php
         include("conexion.php");
         if (isset($_REQUEST["loginBtn"])){
-            $email = $_REQUEST["email"];
-            $pass = $_REQUEST["pass"];
+            $email = htmlentities(addslashes($_REQUEST["email"]));
+            $pass = htmlentities(addslashes($_REQUEST["pass"]));
 
             $hash = password_hash($pass, PASSWORD_DEFAULT, ['cost' => 10]);
 

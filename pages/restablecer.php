@@ -15,7 +15,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../style.css">
-    <title>Modificar Usuario</title>    
+    <title>Restablecer contraseña</title>    
 </head>
 <body>
     <header>
@@ -46,8 +46,14 @@
                             <li class="nav-item">
                                 <a class="nav-link links--final" aria-current="page" href="tickets.html">Comprar tickets</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link links--final" aria-current="page" href="logoff.php">Cerrar Sesión</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle links--final" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $_SESSION["name"]?></a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="loginOK.php">Inicio</a></li>
+                                    <li><a class="dropdown-item" href="modificar.php?email=<?php echo $_SESSION["login"]?>">Modificar perfil</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="logoff.php">Cerrar sesión</a></li>
+                                </ul>
                             </li>
                         </ul>
                     </div>
@@ -86,25 +92,7 @@
         ?>
         <div id="form" class="mx-auto" style="width: 40rem;">
             <form class="form needs-validation" action="update.php" method="POST" novalidate>
-                <input class="form-control" type="text" name="email" value="<?php echo $email?>" hidden>
-                <div class="row">
-                    <div class="col p-2">
-                        <label for="nombre" class="form-label">Nombre</label>
-                        <input class="form-control" type="text" name="nombre" value="<?php echo htmlentities(addslashes($nombre))?>" aria-label="Nombre" required>
-                        <div class="invalid-feedback">
-                            Por favor introduce un nombre
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col p-2">
-                        <label for="apellido" class="form-label">Apellido</label>
-                        <input class="form-control" type="text" name="apellido" value="<?php echo htmlentities(addslashes($apellido))?>" aria-label="Apellido" required>
-                        <div class="invalid-feedback">
-                            Por favor introduce un apellido
-                        </div>
-                    </div>
-                </div>
+                <input class="form-control" type="text" name="email" value="<?php echo $_SESSION["name"]?>" hidden>
                 <div class="row">
                     <div class="col p-2">
                         <label for="pass" class="form-label">Contraseña</label>
@@ -112,16 +100,6 @@
                         <div class="invalid-feedback">
                             Por favor introduce una contraseña
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col p-2">
-                        <label for="categoria" class="form-label">Categoría</label>
-                        <select class="form-select" type="text" name="categoria" aria-label="">
-                            <option value="<?php echo $categoria?>" selected><?php echo $categoria?></option>
-                            <option value="Público general">Público general</option>
-                            <option value="Orador">Orador</option>
-                        </select>
                     </div>
                 </div>
                 <div class="row">
