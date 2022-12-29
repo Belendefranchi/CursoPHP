@@ -63,76 +63,86 @@
             <h3><?php echo $_SESSION["name"]?></h3>
         </div>
         <?php
-            $email=$_GET["email"];
-            if($email==="admin@codo.com.ar"){
-                echo '<div class="text-center mb-4">
-                        <h3>El usuario administrador no puede ser modificado 😉</h3>
+        if($_SESSION["login"]!="admin@codo.com.ar"){
+            echo '<div class="text-center mb-4">
+                        <h3>Solo el usuario administrador puede modificar la tabla 😉</h3>
                     </div>
                     <div class="text-center">
                         <input class="btn btn-green" type="button" value="Volver" onClick="history.go(-1);"></input>
                     </div>
                     ';
-            }else{
-                include("conexion.php");
-                $query="SELECT nombre, apellido, categoria, pass FROM users WHERE email=:email";
-                $resultado=$base->prepare($query);
-                $resultado->bindValue(":email", $email);
-                $resultado->execute();
-                $registros=$resultado->fetch(PDO::FETCH_ASSOC);
+        }else{
+                $email=$_GET["email"];
+                if($email==="admin@codo.com.ar"){
+                    echo '<div class="text-center mb-4">
+                            <h3>El usuario administrador no puede ser modificado 😉</h3>
+                        </div>
+                        <div class="text-center">
+                            <input class="btn btn-green" type="button" value="Volver" onClick="history.go(-1);"></input>
+                        </div>
+                        ';
+                }else{
+                    include("conexion.php");
+                    $query="SELECT nombre, apellido, categoria, pass FROM users WHERE email=:email";
+                    $resultado=$base->prepare($query);
+                    $resultado->bindValue(":email", $email);
+                    $resultado->execute();
+                    $registros=$resultado->fetch(PDO::FETCH_ASSOC);
 
-                $nombre=$registros["nombre"];
-                $apellido=$registros["apellido"];
-                $categoria=$registros["categoria"];
-        ?>
-        <div id="form" class="mx-auto" style="width: 40rem;">
-            <form class="form needs-validation" action="update.php" method="POST" novalidate>
-                <input class="form-control" type="text" name="email" value="<?php echo $email?>" hidden>
-                <div class="row">
-                    <div class="col p-2">
-                        <label for="nombre" class="form-label">Nombre</label>
-                        <input class="form-control" type="text" name="nombre" value="<?php echo $nombre?>" aria-label="Nombre" required>
-                        <div class="invalid-feedback">
-                            Por favor introduce un nombre
+                    $nombre=$registros["nombre"];
+                    $apellido=$registros["apellido"];
+                    $categoria=$registros["categoria"];
+            ?>
+            <div id="form" class="mx-auto" style="width: 40rem;">
+                <form class="form needs-validation" action="update.php" method="POST" novalidate>
+                    <input class="form-control" type="text" name="email" value="<?php echo $email?>" hidden>
+                    <div class="row">
+                        <div class="col p-2">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input class="form-control" type="text" name="nombre" value="<?php echo $nombre?>" aria-label="Nombre" required>
+                            <div class="invalid-feedback">
+                                Por favor introduce un nombre
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col p-2">
-                        <label for="apellido" class="form-label">Apellido</label>
-                        <input class="form-control" type="text" name="apellido" value="<?php echo $apellido?>" aria-label="Apellido" required>
-                        <div class="invalid-feedback">
-                            Por favor introduce un apellido
+                    <div class="row">
+                        <div class="col p-2">
+                            <label for="apellido" class="form-label">Apellido</label>
+                            <input class="form-control" type="text" name="apellido" value="<?php echo $apellido?>" aria-label="Apellido" required>
+                            <div class="invalid-feedback">
+                                Por favor introduce un apellido
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col p-2">
-                        <label for="pass" class="form-label">Contraseña</label>
-                        <input class="form-control" type="text" name="pass" value="" aria-label="Contraseña" required>
-                        <div class="invalid-feedback">
-                            Por favor introduce una contraseña
+                    <div class="row">
+                        <div class="col p-2">
+                            <label for="pass" class="form-label">Contraseña</label>
+                            <input class="form-control" type="text" name="pass" value="" aria-label="Contraseña" required>
+                            <div class="invalid-feedback">
+                                Por favor introduce una contraseña
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col p-2">
-                        <label for="categoria" class="form-label">Categoría</label>
-                        <select class="form-select" type="text" name="categoria" aria-label="">
-                            <option value="<?php echo $categoria?>" selected><?php echo $categoria?></option>
-                            <option value="Público general">Público general</option>
-                            <option value="Orador">Orador</option>
-                        </select>
+                    <div class="row">
+                        <div class="col p-2">
+                            <label for="categoria" class="form-label">Categoría</label>
+                            <select class="form-select" type="text" name="categoria" aria-label="">
+                                <option value="<?php echo $categoria?>" selected><?php echo $categoria?></option>
+                                <option value="Público general">Público general</option>
+                                <option value="Orador">Orador</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col text-center">
-                        <input class="btn btn-green" type="submit" value="Modificar"></input>
-                        <input class="btn btn-green" type="button" value="Cancelar" onClick="history.go(-1);"></input>
+                    <div class="row">
+                        <div class="col text-center">
+                            <input class="btn btn-green" type="submit" value="Modificar"></input>
+                            <input class="btn btn-green" type="button" value="Cancelar" onClick="history.go(-1);"></input>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
-        <?php
+                </form>
+            </div>
+            <?php
+        }
             }
         ?>
     </main>

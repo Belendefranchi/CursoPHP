@@ -63,30 +63,40 @@ session_start();
             <h3><?php echo $_SESSION["name"]?></h3>
         </div>
         <?php
-            $email=$_GET["email"];
-            if($email==="admin@codo.com.ar"){
+            if($_SESSION["login"]!="admin@codo.com.ar"){
                 echo '<div class="text-center mb-4">
-                        <h3>El usuario administrador no puede ser eliminado 😉</h3>
-                    </div>
-                    <div class="text-center">
-                        <input class="btn btn-green" type="button" value="Volver" onClick="history.go(-1);"></input>
-                    </div>
-                    ';
+                            <h3>Solo el usuario administrador puede eliminar usuarios 😉</h3>
+                        </div>
+                        <div class="text-center">
+                            <input class="btn btn-green" type="button" value="Volver" onClick="history.go(-1);"></input>
+                        </div>
+                        ';
             }else{
-                include("conexion.php");
-                $query="DELETE FROM users WHERE email=$email";
-                $resul=$base->prepare($query);
-                $resul->execute(array());
-                $resul->closeCursor();
-                echo '<div class="text-center mb-4">
-                        <h3>El usuario fue eliminado correctamente</h3>
-                    </div>
-                    <div class="text-center">
-                        <input class="btn btn-green" type="button" value="Volver" onClick="history.go(-1);"></input>
-                    </div>
-                    ';
+                $email=$_GET["email"];
+                if($email==="admin@codo.com.ar"){
+                    echo '<div class="text-center mb-4">
+                            <h3>El usuario administrador no puede ser eliminado 😉</h3>
+                        </div>
+                        <div class="text-center">
+                            <input class="btn btn-green" type="button" value="Volver" onClick="history.go(-1);"></input>
+                        </div>
+                        ';
+                }else{
+                    include("conexion.php");
+                    $query="DELETE FROM users WHERE email=$email";
+                    $resul=$base->prepare($query);
+                    $resul->execute(array());
+                    $resul->closeCursor();
+                    echo '<div class="text-center mb-4">
+                            <h3>El usuario fue eliminado correctamente</h3>
+                        </div>
+                        <div class="text-center">
+                            <input class="btn btn-green" type="button" value="Volver" onClick="history.go(-1);"></input>
+                        </div>
+                        ';
+                }
             }
-        ?>
+            ?>
     <footer>
         <section class="section__footer">
             <ul class="footer__list d-flex flex-row justify-content-around">
