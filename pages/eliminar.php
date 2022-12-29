@@ -72,7 +72,9 @@ session_start();
                         </div>
                         ';
             }else{
+
                 $email=$_GET["email"];
+
                 if($email==="admin@codo.com.ar"){
                     echo '<div class="text-center mb-4">
                             <h3>El usuario administrador no puede ser eliminado 😉</h3>
@@ -83,10 +85,14 @@ session_start();
                         ';
                 }else{
                     include("conexion.php");
-                    $query="DELETE FROM users WHERE email=$email";
-                    $resul=$base->prepare($query);
-                    $resul->execute(array());
-                    $resul->closeCursor();
+
+                    $query="DELETE FROM users WHERE email=:email";
+
+                    $resultado=$base->prepare($query);
+                    $resultado->bindParam(":email", $email, PDO::PARAM_INT);
+                    $resultado->execute();
+                    $resultado->closeCursor();
+
                     echo '<div class="text-center mb-4">
                             <h3>El usuario fue eliminado correctamente</h3>
                         </div>

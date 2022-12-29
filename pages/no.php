@@ -1,11 +1,4 @@
-<?php
-    session_start();
-    if (isset($_SESSION["login"])){
-        header("location: loginOK.php");
-        die();
-    }
-?>
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -15,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../style.css">
-    <title>Login</title>
+    <title>Error</title>
 </head>
 <body>
     <header>
@@ -47,7 +40,7 @@
                                 <a class="nav-link links--final" aria-current="page" href="tickets.html">Comprar tickets</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link links--final" aria-current="page" href="login.php">Iniciar Sesión</a>
+                                <a class="nav-link links--final" aria-current="page" href="logoff.php">Cerrar Sesión</a>
                             </li>
                         </ul>
                     </div>
@@ -55,77 +48,12 @@
             </div>
         </nav>
     </header>
-    <main>
-        <?php
-        include("conexion.php");
-        if (isset($_REQUEST["loginBtn"])){
-            $email = htmlentities(addslashes($_REQUEST["email"]));
-            $pass = htmlentities(addslashes($_REQUEST["pass"]));
-
-            if($email and $pass){
-                try{
-                    $query="SELECT nombre, email, pass FROM users WHERE email=:email";
-                    $resultado=$base->prepare($query);
-                    $resultado->bindParam(":email", $email, PDO::PARAM_INT);
-                    $resultado->execute();
-                    
-                    $users=$resultado->fetch(PDO::FETCH_ASSOC);
-                    
-                    if($users != null){
-                    
-                        $hash = $users["pass"];
-
-                        if (password_verify($pass, $hash)){
-
-                            $numero_registro=$resultado->rowCount();
-                            
-                            if ($numero_registro!=0){
-                                $_SESSION["login"] = $email;
-                                $_SESSION["name"] = $users["nombre"];
-                                echo "<script>window.location.reload()</script>";
-                                die();
-                            }
-                        }
-                    }else{
-                        echo '<div class="text-center mb-4"><strong>Correo electrónico y/o contraseña incorrectos</strong></div>';
-                    }
-                }catch (PDOException $e) {
-                    $e->getMessage();
-                }
-            }
-        }
-        ?>
-        <div class="text-center p-4">
-            <h1>Inicia Sesión</h1>
+    <main style="min-height: 65vh;">
+        <div class="text-center mb-4 p-2">
+            <h3>No puedes inyectar código 😉</h3>
         </div>
-        <div id="form" class="mx-auto" style="width: 40rem;">
-            <form class="row g-3 needs-validation" method="POST" novalidate>
-                <div class="row">
-                    <div class="col p-2">
-                        <input type="text" class="form-control" name="email" placeholder="Correo" required>
-                        <div class="invalid-feedback">
-                            Por favor introduce un email válido
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col p-2">
-                        <input type="password" class="form-control" name="pass" placeholder="Contraseña" required>
-                        <div class="invalid-feedback">
-                            Por favor introduce tu contraseña
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 text-center">
-                    <input class="btn btn-green" type="submit" name="loginBtn" value="Inciar Sesión"></input>
-                </div>
-            </form>
-            <div class="row">
-                <div class="col p-2 text-center">
-                    <p>¿No tienes una cuenta?</p>
-                    <a class="nav-link links--final" aria-current="page" href="registro.php">Regístrate</a>
-                </div>
-            </div>
+        <div class="text-center">
+            <input class="btn btn-green" type="button" value="Volver" onClick="history.go(-1);"></input>
         </div>
     </main>
     <footer>
@@ -155,29 +83,8 @@
             </ul>
         </section>
     </footer>
-    <script>
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
-        (() => {
-        'use strict'
-
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        const forms = document.querySelectorAll('.needs-validation')
-
-        // Loop over them and prevent submission
-        Array.from(forms).forEach(form => {
-            form.addEventListener('submit', event => {
-            if (!form.checkValidity()) {
-                event.preventDefault()
-                event.stopPropagation()
-            }
-
-            form.classList.add('was-validated')
-            }, false)
-        })
-        })()
     </script>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-
 </body>
 </html>

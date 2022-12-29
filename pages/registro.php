@@ -57,48 +57,47 @@
                 $apellido=htmlentities(addslashes($_REQUEST["apellido"]));
                 $email=htmlentities(addslashes($_REQUEST["email"]));
                 $pass=htmlentities(addslashes($_REQUEST["pass"]));
-                $cat=htmlentities(addslashes($_REQUEST["cat"]));
-                $host=htmlentities(addslashes($_SERVER['REMOTE_ADDR']));
+                $cat=$_REQUEST["cat"];
+                $host=$_SERVER['REMOTE_ADDR'];
 
                 $hash = password_hash($pass, PASSWORD_DEFAULT, ['cost' => 10]);
 
                 if ($email){
                     try{
                         $queryRepetido="SELECT email FROM users WHERE email=:email";
+                        
                         $resultado=$base->prepare($queryRepetido);
-                        $resultado->bindValue(":email", $email); 
+                        $resultado->bindParam(":email", $email, PDO::PARAM_INT);
+
                         $resultado->execute();
-            
+                        $resultado->closeCursor();
+                        
                         $numero_registro=$resultado->rowCount();
             
                         if ($numero_registro!=0){
                             echo '<div class="text-center mb-4 p-2"><strong>Ese mail ya fue registrado, intenta nuevamente con uno distinto</strong></div>';
                         }else{
-                            try{
-                                $queryInsert="INSERT INTO users (nombre, apellido, email, pass, categoria, host, date_time) VALUES (:nombre, :apellido, :email, :pass, :cat, :host, CURRENT_TIMESTAMP)";
-                                $resultado=$base->prepare($queryInsert);
-                                $resultado->bindParam(":email", $email, PDO::PARAM_INT);
-                                $resultado->bindParam(":nombre", $nombre, PDO::PARAM_INT);
-                                $resultado->bindParam(":apellido", $apellido, PDO::PARAM_INT);
-                                $resultado->bindParam(":categoria", $categoria, PDO::PARAM_INT);
-                                $resultado->bindParam(":pass", $pass, PDO::PARAM_INT);
-                                $resultado->bindParam(":cat", $cat, PDO::PARAM_INT);
-                                $resultado->bindParam(":host", $host, PDO::PARAM_INT);
-
-                                $resultado->execute();
+                            $queryInsert="INSERT INTO users (nombre, apellido, email, pass, categoria, host, date_time) VALUES (:nombre, :apellido, :email, :pass, :cat, :host, CURRENT_TIMESTAMP)";
                             
-                                echo    '<div class="mx-auto text-center mb-4 p-2">
-                                            <strong>Ya estas registrado! por favor inicia sesión con tus datos</strong>
-                                        </div>';
-                            }catch (PDOException $e) {
-                                $e->getMessage();
-                            }
+                            $resultado=$base->prepare($queryInsert);
+                            $resultado->bindParam(":nombre", $nombre, PDO::PARAM_INT);
+                            $resultado->bindParam(":apellido", $apellido, PDO::PARAM_INT);
+                            $resultado->bindParam(":email", $email, PDO::PARAM_INT);
+                            $resultado->bindParam(":pass", $hash, PDO::PARAM_INT);
+                            $resultado->bindParam(":cat", $cat, PDO::PARAM_INT);
+                            $resultado->bindParam(":host", $host, PDO::PARAM_INT);
+
+                            $resultado->execute();
+                            $resultado->closeCursor();
+                        
+                            echo    '<div class="mx-auto text-center mb-4 p-2">
+                                        <strong>Ya estas registrado! por favor inicia sesión con tus datos</strong>
+                                    </div>';
                         }
                     }catch (PDOException $e) {
-                        $e->getMessage();
-                        echo    '<div class="mx-auto text-center mb-4 p-2">
-                                    <h3>No puedes inyectar código 😉</h3>
-                                </div>';
+                        echo "Linea del error: " . $e->getLine() . "<br>";
+                        header("location: no.php");
+                        die("Error: " . $e->getMessage());
                     }
                 }
             }
@@ -126,7 +125,7 @@
                 </div>
                 <div class="row">
                     <div class="col p-2">
-                        <input class="form-control" type="text" name="email" placeholder="Correo" aria-label="Email" required>
+                        <input class="form-control" type="email" name="email" placeholder="Correo" aria-label="Email" required>
                         <div class="invalid-feedback">
                             Por favor introduce un email válido
                         </div>

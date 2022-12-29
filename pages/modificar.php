@@ -72,7 +72,8 @@
                     </div>
                     ';
         }else{
-                $email=$_GET["email"];
+                $email=htmlentities(addslashes($_GET["email"]));
+
                 if($email==="admin@codo.com.ar"){
                     echo '<div class="text-center mb-4">
                             <h3>El usuario administrador no puede ser modificado 😉</h3>
@@ -83,11 +84,14 @@
                         ';
                 }else{
                     include("conexion.php");
+
                     $query="SELECT nombre, apellido, categoria, pass FROM users WHERE email=:email";
+                    
                     $resultado=$base->prepare($query);
-                    $resultado->bindValue(":email", $email);
+                    $resultado->bindParam(":email", $email, PDO::PARAM_INT);
                     $resultado->execute();
                     $registros=$resultado->fetch(PDO::FETCH_ASSOC);
+                    $resultado->closeCursor();
 
                     $nombre=$registros["nombre"];
                     $apellido=$registros["apellido"];

@@ -59,7 +59,7 @@
         <?php
             include("conexion.php");
             
-            $query="SELECT nombre, apellido, email, categoria FROM users WHERE nombre <> 'admin'";
+            $query="SELECT nombre, apellido, email, categoria FROM users WHERE email <> 'admin@codo.com.ar'";
     
             $resultado=$base->prepare($query);
             $resultado->execute();     
@@ -71,12 +71,12 @@
             <h1>Bienvenido!</h1>
         </div>
         <div class="text-center mb-4">
-            <h3><?php echo $_SESSION["name"]?></h3>
+            <h3><?php echo $_SESSION["login"]?></h3>
         </div>
         <div class="text-center" style="width: 55rem; margin: auto;">
                 <table class="table table-striped">
                     <?php
-                        if($_SESSION["name"]==="admin"){
+                        if($_SESSION["login"]==="admin@codo.com.ar"){
                             ?>
                             <thead>
                                 <tr class="table-dark">
