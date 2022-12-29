@@ -90,7 +90,7 @@
                 <div class="row">
                     <div class="col p-2">
                         <label for="nombre" class="form-label">Nombre</label>
-                        <input class="form-control" type="text" name="nombre" value="<?php echo htmlentities(addslashes($nombre))?>" aria-label="Nombre" required>
+                        <input class="form-control" type="text" name="nombre" value="<?php echo $nombre?>" aria-label="Nombre" required>
                         <div class="invalid-feedback">
                             Por favor introduce un nombre
                         </div>
@@ -99,7 +99,7 @@
                 <div class="row">
                     <div class="col p-2">
                         <label for="apellido" class="form-label">Apellido</label>
-                        <input class="form-control" type="text" name="apellido" value="<?php echo htmlentities(addslashes($apellido))?>" aria-label="Apellido" required>
+                        <input class="form-control" type="text" name="apellido" value="<?php echo $apellido?>" aria-label="Apellido" required>
                         <div class="invalid-feedback">
                             Por favor introduce un apellido
                         </div>

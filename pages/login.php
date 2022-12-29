@@ -68,7 +68,7 @@
                 try{
                     $query="SELECT nombre, email, pass FROM users WHERE email=:email";
                     $resultado=$base->prepare($query);
-                    $resultado->bindValue(":email", $email);
+                    $resultado->bindParam(":email", $email, PDO::PARAM_INT);
                     $resultado->execute();
                     $users=$resultado->fetch(PDO::FETCH_ASSOC);
                     
