@@ -57,7 +57,6 @@
     <main style="min-height: 65vh;">
         <?php
             include("conexion.php");
-            include("funciones.php");
             
             $query="SELECT nombre, apellido, email, categoria FROM users WHERE nombre <> 'admin'";
     
