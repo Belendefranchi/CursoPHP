@@ -83,7 +83,7 @@
                             if ($numero_registro!=0){
                                 $_SESSION["login"] = $email;
                                 $_SESSION["name"] = $users["nombre"];
-                                header("location: loginOK.php");
+                                echo "<script>window.location.reload()</script>";
                                 die();
                             }
                         }
